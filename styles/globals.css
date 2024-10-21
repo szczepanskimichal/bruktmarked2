@@ -3,42 +3,48 @@
 @tailwind utilities;
 
 :root {
-  --primary: #ff8343;
-  --secondary: #f1dec6;
+	--primary: #ff8343;
+	--secondary: #f1dec6;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  @apply bg-color-50;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	overflow-x: hidden;
+	@apply bg-color-50;
 }
 
 button {
-  @apply rounded-md px-3 py-2 transition delay-150 duration-300 hover:scale-105 flex gap-2 items-center shadow-md whitespace-nowrap;
+	@apply rounded-md px-3 py-2 transition delay-150 duration-300 hover:scale-105 flex gap-2 items-center shadow-md whitespace-nowrap;
 }
+
 input,
 textarea,
 select {
-  @apply bg-white/80 border-2 border-color-800 rounded-md p-2 focus:outline-none focus:border-primary mb-1 w-full shadow-md text-black;
+	@apply bg-white/80 border-2 border-color-800 rounded-md p-2 focus:outline-none focus:border-primary mb-1 w-full shadow-md text-black;
 }
+
 input:disabled {
-  @apply bg-color-800/20 cursor-not-allowed;
+    @apply bg-color-800/20 cursor-not-allowed
 }
+
 label {
-  @apply text-gray-500 text-sm;
+	@apply text-gray-500 text-sm;
 }
+
 ::-webkit-scrollbar {
-  width: 5px;
+	width: 5px;
 }
+
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 10px var(--secondary);
+	box-shadow: inset 0 0 10px var(--secondary);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 20px;
+	background: var(--primary);
+	border-radius: 20px;
 }
