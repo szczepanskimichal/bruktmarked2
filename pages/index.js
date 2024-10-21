@@ -1,12 +1,9 @@
-import { Inter } from "next/font/google";
 import Layout from "@/components/Layout";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <Layout>
-      <div>Home you idiot</div>
+      <div className="w-full h-full flex justify-center items-center"></div>
     </Layout>
   );
 }
