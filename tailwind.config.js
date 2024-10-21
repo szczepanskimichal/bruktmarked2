@@ -1,4 +1,4 @@
-const { content, theme, plugins } = require("./tailwind.config");
+const { content, theme, plugins } = require("tailwindcss");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,10 +9,21 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        primary: "#FF8343",
+        secondary: "#F1DEC6",
+        color: {
+          50: "#FBF4EE",
+          100: "#F9EDE0",
+          200: "#F3DEC3",
+          300: "#EDD1A7",
+          400: "#E6C489",
+          500: "#F1DEC6",
+          600: "#C2A38E",
+          700: "#927B66",
+          800: "#63523F",
+          900: "#312B1F",
+        },
       },
     },
   },
