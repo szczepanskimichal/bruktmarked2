@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
-import IndexButton from "./IndexButton";
+import IndexButton from "../buttons/IndexButton";
 
 export default function UserIndexDiv({ user }) {
   return (

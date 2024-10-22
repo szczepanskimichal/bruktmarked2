@@ -1,7 +1,7 @@
-import Layout from "@/components/Layout";
+import Layout from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
-import UserIndexDiv from "@/components/UserIndexDiv";
+import UserIndexDiv from "@/components/layout/UserIndexDiv";
 
 export default function Home() {
   return (
