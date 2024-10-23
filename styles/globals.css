@@ -52,3 +52,6 @@ label {
 .full {
   min-height: calc(100vh - 60px);
 }
+button.primary {
+  @apply bg-primary text-white;
+}
