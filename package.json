@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.4.2",
+    "@aws-sdk/client-s3": "^3.677.0",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "framer-motion": "^11.3.22",
     "mongoose": "^8.5.2",
+    "multiparty": "^4.2.3",
     "next": "^14.2.15",
     "next-auth": "^4.24.8",
     "node": "^22.6.0",

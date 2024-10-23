@@ -52,7 +52,7 @@ export default function UserIndexDiv({ user }) {
                   </svg>
                 }
                 text="Create new product"
-                href="/product/new"
+                href="/products/new"
               />
               <IndexButton
                 icon={
