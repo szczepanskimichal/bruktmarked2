@@ -16,7 +16,6 @@ export default function RegisterPage() {
   const [passwordError, setPasswordError] = useState(null);
   const [loading, setLoading] = useState(null);
   const router = useRouter();
-
   useEffect(() => {
     const regex = /^[^\s@]+@[^\s@]+\.com$/;
     if (email !== "") {
@@ -96,7 +95,6 @@ export default function RegisterPage() {
           >
             Login
           </button>
-
           <div className="my-4 text-center text-gray-500">
             or login with provider
           </div>

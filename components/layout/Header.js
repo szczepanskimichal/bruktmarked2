@@ -53,7 +53,7 @@ const Header = () => {
         <nav className="flex gap-10 items-center">
           <SearchButton />
           <UserButton />
-          <Link href={"/cart"} className="group">
+          <Link href={"/product"} className="group">
             <div className="flex items-center h-[60px] relative transition-all delay-150 duration-300 group-hover:text-primary">
               <CartIcon className="size-7" />
               <div className="absolute top-2 left-4 bg-color-800 text-white border-2 border-white rounded-full items-center justify-center flex size-5 text-xs transition delay-150 duration-300 group-hover:text-primary group-hover:border-primary">
