@@ -2,8 +2,11 @@ import Layout from "@/components/layout/Layout";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
 import UserIndexDiv from "@/components/layout/UserIndexDiv";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const session = useSession();
+  console.log(session.user);
   return (
     // tutaj mam zdjecia na glownej stronie
     <Layout>
@@ -24,7 +27,7 @@ export default function Home() {
         >
           <img src="nike2.png" className="w-[400px] scale-x-[-1]" alt="" />
         </motion.div>
-        <UserIndexDiv />
+        <UserIndexDiv user={session?.data?.user} />
       </div>
     </Layout>
   );

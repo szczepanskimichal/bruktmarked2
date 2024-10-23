@@ -18,8 +18,23 @@ body {
   @apply bg-color-50;
 }
 
+h2 {
+  @apply text-primary text-3xl sm:text-4xl font-semibold mb-3;
+}
+h3 {
+  @apply text-2xl font-bold mb-3;
+}
+
 button {
   @apply rounded-md px-3 py-2 transition delay-150 duration-300 hover:scale-105 flex gap-2 items-center shadow-md whitespace-nowrap;
+}
+
+button.primary {
+  @apply bg-primary text-white;
+}
+
+button.secondary {
+  @apply bg-white text-primary border-2 border-primary;
 }
 
 input,
@@ -34,6 +49,10 @@ input:disabled {
 
 label {
   @apply text-gray-500 text-sm;
+}
+
+.box {
+  @apply rounded-lg bg-color-100 shadow-xl;
 }
 
 ::-webkit-scrollbar {
@@ -51,7 +70,4 @@ label {
 
 .full {
   min-height: calc(100vh - 60px);
-}
-button.primary {
-  @apply bg-primary text-white;
 }
