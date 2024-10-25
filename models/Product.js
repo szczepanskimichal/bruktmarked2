@@ -6,6 +6,8 @@ const ProductSchema = new Schema(
     title: { type: String, required: true },
     description: { type: String },
     price: { type: Number, required: true },
+    // images: [{ type: String }], // do wyswietlania zdjec na karcie produktu, brakowalo mi tego a glowilem sie dlaczego nie wyswietlalo mi zdjec
+    images: [{ type: String }],
     color: { type: mongoose.Types.ObjectId, ref: "Color" },
     size: { type: mongoose.Types.ObjectId, ref: "Size" },
     category: { type: mongoose.Types.ObjectId, ref: "Category" },

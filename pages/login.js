@@ -1,7 +1,6 @@
 import FormInput from "@/components/inputs/FormInput";
 import Layout from "@/components/layout/Layout";
 import { fadeIn } from "@/utils/motion";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import Link from "next/link";

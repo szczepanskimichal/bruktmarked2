@@ -5,9 +5,7 @@ import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
-import { title } from "process";
-import { parse } from "path";
-import { stringify } from "querystring";
+import ProductCard from "@/components/layout/ProductCard";
 
 export default function ProductsPage({ products }) {
   const session = useSession();
@@ -49,7 +47,9 @@ export default function ProductsPage({ products }) {
               // 	<Spinner />
               // ) : (
               products?.length > 0 &&
-              products.map((product, index) => <div>{product.title}</div>)
+              products.map((product, index) => (
+                <ProductCard key={products._id} index={index} {...products} />
+              ))
             // )
           }
         </div>
