@@ -19,6 +19,7 @@ export default function ProductCard({
 
   // console.log(session.data.user.id);
   return (
+    // oplatam calosc motion i fadeinem, robie animacje :)
     <motion.div
       variants={fadeIn("down", "spring", 0.1 * index, 1)}
       initial="hidden"
@@ -26,14 +27,15 @@ export default function ProductCard({
       className="box"
       id={index}
     >
-      <div className="bg-white h-[200px] mb-2 rounded-t-lg flex justify-center items-center">
+      <div className="bg-white  mb-2 rounded-t-lg flex justify-center items-center">
         <Link href={"/products/" + _id}>
           {images?.length > 0 ? (
-            <img src={images[0]} className="max-h-[180px] rounded-lg" />
+            <img src={images[0]} className="max-h-[180px] rounded-lg p-1" /> // wyswietlanie zdjecia
           ) : (
+            // jesli nie ma zdjecia to wyswietla pusty obrazek
             <img
               src="https://vilo.krakow.pl/wp-content/uploads/2020/07/emptyimagee.jpg"
-              className="rounded-lg p-1"
+              className="rounded-lg p-2 h-[200px]" // dolozylem ograniczenie wysokosci bo bez zdjecia wariowal layout
             />
           )}
         </Link>
@@ -45,18 +47,19 @@ export default function ProductCard({
               {title}
             </h3>
           </Link>
-          {session?.data?.user.id !== user && (
+          {session?.data?.user.id !== user && ( // jesli zalogowany uzytkownik nie jest autorem produktu to wyswietla ikone serca
             <FaRegHeart className="size-5 mb-3 cursor-pointer text-red-600" />
           )}
         </div>
         <div className="flex gap-3 justify-between items-center mt-3">
           <p className="text-2xl font-bold">${price}</p>
-          {session?.data?.user.id !== user ? (
+          {session?.data?.user.id !== user ? ( // jesli zalogowany uzytkownik nie jest autorem produktu to wyswietla przycisk dodaj do koszyka
             <button className="primary">
               <CartIcon className="size-5" />
               Add to Cart
             </button>
           ) : (
+            // jesli zalogowany uzytkownik jest autorem produktu to wyswietla przyciski edytuj i usun
             <div className="flex gap-3 items-center">
               <Link href={"/products/edit/" + _id}>
                 <button className="text-white bg-gray-500">

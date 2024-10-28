@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { mongooseConnect } from "@/lib/mongoose";
-
+// tutaj tworze session
 export const authOptions = {
   secret: process.env.SECRET,
   session: {
@@ -35,8 +35,10 @@ export const authOptions = {
 
         await mongooseConnect();
         const user = await User.findOne({ email });
+
         if (user && bcrypt.compareSync(password, user.password)) {
           return {
+            // jesli uzytkownik istnieje i haslo sie zgadza to zwraca dane uzytkownika
             id: user._id.toString(),
             email: user.email,
             name: user.name,
@@ -47,6 +49,7 @@ export const authOptions = {
       },
     }),
   ],
+  // JWT callback functions
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -55,6 +58,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
+      // tworzenie sesji
       session.user.id = token.id;
       return session;
     },

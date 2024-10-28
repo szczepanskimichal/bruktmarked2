@@ -37,4 +37,3 @@ export default function DetailsTabs({ product }) {
     </>
   );
 }
-import { AnimatePresence, motion, animate } from "framer-motion";

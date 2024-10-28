@@ -12,8 +12,10 @@ import DeleteIcon from "@/components/icons/DeleteIcon";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-// import DetailsTabs from "@/components/buttons/DetailsTabs";
+import { format } from "date-fns";
+import DetailsTabs from "@/components/buttons/DetailsTabs";
 
+// to jest karta poszczegolnego produktu waraz z opisem, wlasciwosciami, cena, dostawa i zwrotami
 export default function ProductPage({ product, category, color, size, user }) {
   const session = useSession();
   return (
@@ -77,7 +79,7 @@ export default function ProductPage({ product, category, color, size, user }) {
                   )}
                   {size && (
                     <div className="flex-1">
-                      <label>Color</label>
+                      <label>Size</label>
                       <div className="flex gap-3 mt-1">
                         <div className="bg-white py-2 px-4 rounded-md shadow-md text-color-700 w-full">
                           {size.name}
