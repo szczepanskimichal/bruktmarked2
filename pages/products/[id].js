@@ -145,7 +145,7 @@ export async function getServerSideProps(context) {
   await mongooseConnect();
 
   const { id } = context.query;
-  console.log("Product ID:", id);
+  // console.log("Product ID:", id);
 
   const product = await Product.findById(id);
   const category = await Category.findById(product.category);

@@ -2,7 +2,6 @@ import ProductForm from "@/components/inputs/ProductForm";
 import Layout from "@/components/layout/Layout";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
-import { useRouter } from "next/router";
 
 export default function EditProductPage({ product }) {
   return <Layout>{product && <ProductForm {...product} />}</Layout>;

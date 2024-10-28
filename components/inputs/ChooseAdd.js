@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
+// TUTAJ JEST POTWIERDZANIE
+
 export default function ChooseAdd({
   item,
   items,
@@ -13,6 +15,7 @@ export default function ChooseAdd({
   api,
 }) {
   const [value, setValue] = useState("");
+
   async function addItem(e) {
     e.preventDefault();
     try {
@@ -28,11 +31,13 @@ export default function ChooseAdd({
       console.error(`Error adding ${itemName}:`, error);
     }
   }
+  // po napisaniu async function addItem(e) napisze Api categories, colors, sizes.js !!!
+
   return (
     <div className="flex gap-1 items-center">
       <div className="flex-1">
         <label>Choose {itemName}</label>
-        <select value={item} onChange={(e) => setItem(e.target.value)}>
+        <select value={item || ""} onChange={(e) => setItem(e.target.value)}>
           <option value="">No {itemName}</option>
           {items.length > 0 &&
             items.map((item) => (

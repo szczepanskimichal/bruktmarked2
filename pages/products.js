@@ -6,9 +6,11 @@ import Spinner from "@/components/Spinner";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import ProductCard from "@/components/layout/ProductCard";
+import { useState } from "react";
 
 export default function ProductsPage({ products }) {
   const session = useSession();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   function handleAddClick() {
@@ -41,17 +43,14 @@ export default function ProductsPage({ products }) {
           </button>
         </div>
         <div className="flex flex-col sm:mx-10 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-          {
-            session.status === "authenticated" &&
-              //     loading ? (
-              // 	<Spinner />
-              // ) : (
-              products?.length > 0 &&
-              products.map((product, index) => (
-                <ProductCard key={products._id} index={index} {...products} />
-              ))
-            // )
-          }
+          {session.status === "authenticated" && loading ? (
+            <Spinner />
+          ) : (
+            products?.length > 0 &&
+            products.map((product, index) => (
+              <ProductCard key={product._id} index={index} {...product} />
+            ))
+          )}
         </div>
       </div>
     </Layout>

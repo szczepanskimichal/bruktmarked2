@@ -36,10 +36,12 @@ export default function ProductForm({
   const session = useSession();
 
   useEffect(() => {
+    // do wyswietlania wszystkich kategorii
     fetchCategories();
     fetchColors();
     fetchSizes();
   }, []);
+
   function fetchCategories() {
     axios.get("/api/categories").then((response) => {
       setCategories(response.data);

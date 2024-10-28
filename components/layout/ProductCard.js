@@ -17,7 +17,7 @@ export default function ProductCard({
 }) {
   const session = useSession();
 
-  console.log(session.data.user.id);
+  // console.log(session.data.user.id);
   return (
     <motion.div
       variants={fadeIn("down", "spring", 0.1 * index, 1)}

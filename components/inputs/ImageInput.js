@@ -5,26 +5,33 @@ import Spinner from "../Spinner";
 
 export default function ImageInput({ images, setImages }) {
   const [loading, setLoading] = useState(false);
+
   async function uploadImages(e) {
     const files = e.target?.files;
     if (files?.length > 0) {
-      setLoading(true);
-      const data = new FormData();
+      setLoading(true); // rozpoczynam proces wgrywania zdjecia
+      const data = new FormData(); // tworzę nowy obiekt FormData
       for (const file of files) {
-        data.append("file", file);
+        // dla każdego pliku w files
+        data.append("file", file); // dodaję plik do obiektu FormData
       }
-      const response = await axios.post("/api/upload", data);
+      const response = await axios.post("/api/upload", data); // wysyłam pliki na serwer
       setImages((oldImages) => {
-        return [...oldImages, ...response.data.links];
+        // dodaję nowe zdjęcia do stanu
+        return [...oldImages, ...response.data.links]; // zwracam nową tablicę z nowymi zdjęciami
       });
-      setLoading(false);
+      setLoading(false); // kończę proces wgrywania zdjęcia
     }
   }
+  // po napisaniu async function uploadImages(e) pisze Api upload.js !!!
+
   function updateImagesOrder(images) {
-    setImages(images);
+    // funkcja do zmiany kolejności zdjęć
+    setImages(images); // ustawiam nową kolejność zdjęć
   }
   function removeImage(removedImage) {
-    setImages(images.filter((image) => image !== removedImage));
+    // funkcja do usuwania zdjęcia
+    setImages(images.filter((image) => image !== removedImage)); // usuwam zdjęcie z tablicy
   }
 
   return (
@@ -39,7 +46,7 @@ export default function ImageInput({ images, setImages }) {
             <Spinner />
           </div>
         )}
-        <ReactSortable
+        <ReactSortable // komponent do zmiany kolejności zdjęć
           className="flex flex-wrap gap-3"
           list={images}
           setList={updateImagesOrder}

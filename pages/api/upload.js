@@ -5,28 +5,36 @@ import fs from "fs";
 import mime from "mime-types";
 
 const bucket = "ecommerce2-michal";
+
 export default async function handle(req, res) {
-  await mongooseConnect();
-  const form = new multiparty.Form();
+  await mongooseConnect(); // połączenie z bazą danych
+  const form = new multiparty.Form(); // tworzę nowy obiekt multiparty.Form
   const { fields, files } = await new Promise((resolve, reject) => {
+    // tworzę nowy Promise, który zwraca fields i files,
     form.parse(req, (err, fields, files) => {
-      if (err) reject(err);
-      resolve({ fields, files });
+      // parsuję request
+      if (err) reject(err); // jeśli wystąpi błąd, zwróć błąd
+      resolve({ fields, files }); // zwróć fields i files
     });
   });
+
   const client = new S3Client({
+    // tworzę nowy obiekt S3Client
     region: "eu-north-1",
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY,
       secretAccessKey: process.env.AWS_SECRET_KEY,
     },
   });
-  const links = [];
+  const links = []; // tworzę pustą tablicę links
   for (const file of files.file) {
-    const ext = file.originalFilename.split(".").pop();
-    const newFilename = Date.now() + "." + ext;
+    // dla każdego pliku w files.file
+    const ext = file.originalFilename.split(".").pop(); // pobieram rozszerzenie pliku
+    const newFilename = Date.now() + "." + ext; // tworzę nową nazwę pliku
     await client.send(
+      // wysyłam plik na serwer
       new PutObjectCommand({
+        // tworzę nowy obiekt PutObjectCommand
         Bucket: bucket,
         Key: newFilename,
         Body: fs.readFileSync(file.path),
@@ -34,11 +42,12 @@ export default async function handle(req, res) {
         ContentType: mime.lookup(file.path),
       })
     );
-    const link = `https://${bucket}.s3.amazonaws.com/${newFilename}`;
-    links.push(link);
+    const link = `https://${bucket}.s3.amazonaws.com/${newFilename}`; // tworzę link do pliku
+    links.push(link); // dodaję link do tablicy links
   }
-  return res.json({ links });
+  return res.json({ links }); // zwracam tablicę links
 }
 export const config = {
-  api: { bodyParser: false },
+  // konfiguracja API
+  api: { bodyParser: false }, // wyłączam domyślny parser
 };
