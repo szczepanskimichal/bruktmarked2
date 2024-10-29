@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { format } from "date-fns";
 import DetailsTabs from "@/components/buttons/DetailsTabs";
+import ProductImages from "@/components/layout/ProductImages";
 
 // to jest karta poszczegolnego produktu waraz z opisem, wlasciwosciami, cena, dostawa i zwrotami
 export default function ProductPage({ product, category, color, size, user }) {
@@ -29,10 +30,7 @@ export default function ProductPage({ product, category, color, size, user }) {
               whileInView="show"
               className="w-full box p-5"
             >
-              <img
-                src="https://images.eatthismuch.com/img/207909_tabitharwheeler_db2162f4-e020-4ba7-aa63-9f982c258588.jpg"
-                alt=""
-              />
+              <ProductImages images={product.images} />
             </motion.div>
             <motion.div
               variants={fadeIn("left", "spring", 0.3, 1)}

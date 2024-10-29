@@ -10,6 +10,7 @@ import { useState } from "react";
 
 export default function ProductsPage({ products }) {
   const session = useSession();
+  // console.log(session);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 

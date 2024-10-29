@@ -12,6 +12,7 @@ export default function DetailsTabs({ product }) {
   return (
     <>
       <div className="lg:w-[70%] border-b font-semibold text-gray-500 border-color-600 flex items-center w-full justify-between sm:justify-normal sm:gap-[100px] mb-5">
+        {/* // to jest div w ktorym jest kreseczka i podkreslenie */}
         {Object.keys(tabContent).map((tab) => (
           <TabButton
             key={tab}
