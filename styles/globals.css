@@ -37,6 +37,14 @@ button.secondary {
   @apply bg-white text-primary border-2 border-primary;
 }
 
+button.delete {
+  @apply bg-red-500 text-white;
+}
+
+button.cancel {
+  @apply bg-gray-500 text-white;
+}
+
 input,
 textarea,
 select {
@@ -55,7 +63,8 @@ label {
   @apply rounded-lg bg-color-100 shadow-xl;
 }
 
-::-webkit-scrollbar {
+/* to przeszkadalo mi w karcie produktu w galerii miniatur, dawalo podwojny pasek do przewijania  i wogole brzydkie to bylo */
+/* ::-webkit-scrollbar {
   width: 5px;
 }
 
@@ -66,7 +75,7 @@ label {
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 20px;
-}
+} */
 
 .full {
   min-height: calc(100vh - 60px);

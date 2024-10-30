@@ -9,18 +9,47 @@ import { fadeIn } from "@/utils/motion";
 import CartIcon from "@/components/icons/CartIcon";
 import EditIcon from "@/components/icons/EditIcon";
 import DeleteIcon from "@/components/icons/DeleteIcon";
-import { motion } from "framer-motion";
+
+import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { format } from "date-fns";
 import DetailsTabs from "@/components/buttons/DetailsTabs";
 import ProductImages from "@/components/layout/ProductImages";
+import { useState } from "react";
+import Backdrop from "@/components/Backdrop";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
-// to jest karta poszczegolnego produktu waraz z opisem, wlasciwosciami, cena, dostawa i zwrotami
 export default function ProductPage({ product, category, color, size, user }) {
+  const [confirm, setConfirm] = useState(false);
+  const router = useRouter();
   const session = useSession();
+
+  async function handleDelete() {
+    await axios.delete("/api/products/?id=" + product._id);
+    toast.success("Product deleted!");
+    setConfirm(false);
+    router.push("/products");
+  }
   return (
     <>
+      <AnimatePresence>
+        {confirm && (
+          <Backdrop handleClose={() => setConfirm(false)}>
+            <h3>Are you sure you want to delete this product?</h3>
+            <div className="flex gap-3 justify-center">
+              <button onClick={handleDelete} className="delete">
+                Yes, delete!
+              </button>
+              <button onClick={() => setConfirm(false)} className="cancel">
+                No, cancel.
+              </button>
+            </div>
+          </Backdrop>
+        )}
+      </AnimatePresence>
       <Layout>
         <div className="flex flex-col items-center">
           <div className="w-full lg:w-[80%] flex flex-col items-start justify-center md:grid grid-cols-2 gap-10 md:px-5 xl:p-10 mb-5">
@@ -77,7 +106,7 @@ export default function ProductPage({ product, category, color, size, user }) {
                   )}
                   {size && (
                     <div className="flex-1">
-                      <label>Size</label>
+                      <label>Color</label>
                       <div className="flex gap-3 mt-1">
                         <div className="bg-white py-2 px-4 rounded-md shadow-md text-color-700 w-full">
                           {size.name}
@@ -98,12 +127,12 @@ export default function ProductPage({ product, category, color, size, user }) {
                 session?.data?.user.id === user._id ? (
                   <div className="flex gap-3 mb-3">
                     <Link href={"/products/edit/" + product._id}>
-                      <button className="text-white bg-gray-500">
+                      <button className="cancel">
                         <EditIcon className="size-4" />
                         Edit
                       </button>
                     </Link>
-                    <button className="text-white bg-red-500">
+                    <button onClick={() => setConfirm(true)} className="delete">
                       <DeleteIcon className="size-4" />
                       Delete
                     </button>
@@ -141,17 +170,17 @@ export default function ProductPage({ product, category, color, size, user }) {
     </>
   );
 }
+
 export async function getServerSideProps(context) {
   await mongooseConnect();
 
   const { id } = context.query;
-  // console.log("Product ID:", id);
-
   const product = await Product.findById(id);
   const category = await Category.findById(product.category);
   const color = await Color.findById(product.color);
   const size = await Size.findById(product.size);
   const user = await User.findById(product.user);
+
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),

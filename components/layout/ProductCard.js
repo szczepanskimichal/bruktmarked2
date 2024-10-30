@@ -9,6 +9,7 @@ import { fadeIn } from "@/utils/motion";
 
 export default function ProductCard({
   _id,
+  setConfirm, // funkcja do usuwania produktu z All products
   title,
   images,
   price,
@@ -62,11 +63,11 @@ export default function ProductCard({
             // jesli zalogowany uzytkownik jest autorem produktu to wyswietla przyciski edytuj i usun
             <div className="flex gap-3 items-center">
               <Link href={"/products/edit/" + _id}>
-                <button className="text-white bg-gray-500">
+                <button className="cancel">
                   <EditIcon className="size-5" />
                 </button>
               </Link>
-              <button className="text-white bg-red-500">
+              <button onClick={() => setConfirm(true)} className="delete">
                 <DeleteIcon className="size-5" />
               </button>
             </div>
