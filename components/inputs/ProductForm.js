@@ -7,6 +7,8 @@ import ImageInput from "./ImageInput";
 import ChooseAdd from "./ChooseAdd";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/dist/css/rcp.css";
 
 export default function ProductForm({
   title: existingTitle,
@@ -22,15 +24,13 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [category, setCategory] = useState(assignedCategory || null);
   const [newCategory, setNewCategory] = useState("");
-  const [color, setColor] = useState(assignedColor || null);
-  const [newColor, setNewColor] = useState("");
+  const [color, setColor] = useColor(assignedColor, "#000000");
   const [size, setSize] = useState(assignedSize || null);
   const [newSize, setNewSize] = useState("");
   const [price, setPrice] = useState(existingPrice || "");
   const [used, setUsed] = useState(false);
   const [images, setImages] = useState(existingImages || []);
   const [categories, setCategories] = useState([]);
-  const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const router = useRouter();
   const session = useSession();
@@ -38,7 +38,6 @@ export default function ProductForm({
   useEffect(() => {
     // do wyswietlania wszystkich kategorii
     fetchCategories();
-    fetchColors();
     fetchSizes();
   }, []);
 
@@ -47,11 +46,7 @@ export default function ProductForm({
       setCategories(response.data);
     });
   }
-  function fetchColors() {
-    axios.get("/api/colors").then((response) => {
-      setColors(response.data);
-    });
-  }
+
   function fetchSizes() {
     axios.get("/api/sizes").then((response) => {
       setSizes(response.data);
@@ -70,7 +65,7 @@ export default function ProductForm({
           price,
           images,
           category,
-          color,
+          color: color.hex,
           size,
           used,
         };
@@ -93,9 +88,9 @@ export default function ProductForm({
       variants={fadeIn("up", "spring", 0.2, 1)}
       initial="hidden"
       whileInView="show"
-      className="sm:px-5 flex flex-col gap-5 items-start"
+      className="sm:px-5 flex flex-col  items-start gap-5"
     >
-      <div className="grid md:grid-cols-3 lg:grid-cols-2 gap-10">
+      <div className="flex justify-center gap-10 items-start">
         <div className="md:col-span-2 lg:col-span-1">
           <label>Product name</label>
           <input
@@ -119,16 +114,7 @@ export default function ProductForm({
             itemName="category"
             api="categories"
           />
-          <ChooseAdd
-            item={color}
-            setItem={setColor}
-            items={colors}
-            newItem={newColor}
-            setNewItem={setNewColor}
-            fetchItems={fetchColors}
-            itemName="color"
-            api="colors"
-          />
+
           <ChooseAdd
             item={size}
             setItem={setSize}
@@ -153,7 +139,24 @@ export default function ProductForm({
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-        <ImageInput images={images} setImages={setImages} />
+        <div className="flex flex-col items-start gap-5">
+          <ImageInput images={images} setImages={setImages} />
+          <label>Color</label>
+          <div className="flex gap-3">
+            <div
+              style={{ backgroundColor: color.hex }}
+              className="w-24 h-24 cursor-pointer rounded-lg border shadow-md"
+            />
+            <div className="w-[200px]">
+              <ColorPicker
+                color={color}
+                onChange={setColor}
+                hideInput
+                hideAlpha
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <button
         type="submit"
