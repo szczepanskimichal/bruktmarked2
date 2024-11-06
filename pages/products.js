@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import Spinner from "@/components/Spinner";
+import useWishlist from "@/hooks/useWishlist";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import ProductCard from "@/components/layout/ProductCard";
@@ -16,8 +17,9 @@ export default function ProductsPage({ products }) {
 
   const session = useSession();
   // console.log(session);
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const { wishlist, setWishlist, loading } = useWishlist();
 
   function handleAddClick() {
     if (session.status === "authenticated") {
@@ -82,8 +84,10 @@ export default function ProductsPage({ products }) {
                 <ProductCard
                   key={product._id}
                   index={index}
-                  {...product}
                   setConfirm={() => setConfirm(product._id)} // funkcja do usuwania produktu z All products powiazane z ProductCard
+                  {...product}
+                  wishlist={wishlist}
+                  setWishlist={setWishlist}
                 />
               ))
             )}

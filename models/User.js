@@ -6,7 +6,7 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String },
     image: { type: String },
-    // wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    wishlist: [{ type: Schema.Types.ObjectId, ref: "Product" }], // do przechowywania listy zyczen, bedzie zlaczone z userem
   },
   {
     timestamps: true,
