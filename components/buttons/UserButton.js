@@ -17,7 +17,12 @@ export default function UserButton() {
     if (hoverTimeout) {
       clearTimeout(hoverTimeout);
     }
-    setInfoDiv(true);
+    // Ustawiam timeout, który po 250 ms pokaże element informacyjny
+    const timeout = setTimeout(() => {
+      setInfoDiv(true); // Ustawia stan wyświetlenia elementu informacyjnego na true
+    }, 250);
+    // Przechowujemy referencję do timeoutu, aby móc go później anulować, jeśli zajdzie taka potrzeba
+    setHoverTimeout(timeout);
   };
   const handleMouseLeaveIcon = () => {
     const timeout = setTimeout(() => {
