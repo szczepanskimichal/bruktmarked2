@@ -1,5 +1,5 @@
 import AccountLayout from "@/components/layout/AccountLayout";
-import ProductCard from "@/components/layout/ProductCard";
+import ProductCard from "@/components/layout/WishlistProduct";
 import Spinner from "@/components/Spinner";
 import useWishlist from "@/hooks/useWishlist";
 
