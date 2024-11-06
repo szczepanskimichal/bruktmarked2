@@ -48,7 +48,7 @@ export default function ProfilePage() {
         </Backdrop>
       )}
       {/* Główny layout strony z profilem użytkownika */}
-      <AccountLayout title="Your profile">
+      <AccountLayout title="My profile">
         {loading ? (
           <Spinner /> // Wyświetlanie ładowania, gdy dane użytkownika są jeszcze pobierane
         ) : (

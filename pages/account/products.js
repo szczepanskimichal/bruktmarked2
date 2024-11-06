@@ -56,7 +56,7 @@ export default function UserProductsPage() {
       </AnimatePresence>
 
       {/* Główny layout strony konta użytkownika */}
-      <AccountLayout title="Your products">
+      <AccountLayout title="My products">
         <div className="mt-5 flex flex-col sm:mx-10 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {/* Mapowanie przez produkty i tworzenie kart produktu */}
           {products.map((product, index) => (
