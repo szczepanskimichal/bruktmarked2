@@ -17,12 +17,14 @@ export default function SearchPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [confirm, setConfirm] = useState(false);
+
   async function handleDelete() {
     await axios.delete("/api/products/?id=" + confirm);
     toast.success("Product deleted!");
     setConfirm(false);
     router.push("/products");
   }
+
   useEffect(() => {
     if (q) {
       setLoading(true);
@@ -38,6 +40,7 @@ export default function SearchPage() {
   }, [q]);
   return (
     <>
+      {/* // to jest do usowania */}
       <AnimatePresence>
         {confirm && (
           <Backdrop handleClose={() => setConfirm(false)}>

@@ -80,3 +80,15 @@ label {
 .full {
   min-height: calc(100vh - 60px);
 }
+
+table {
+  @apply w-full mt-5;
+}
+
+table thead tr td {
+  @apply text-sm text-color-700 font-semibold uppercase;
+}
+
+table tr td {
+  @apply p-3;
+}

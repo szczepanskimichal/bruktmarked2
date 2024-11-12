@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { slideIn } from "@/utils/motion";
@@ -9,6 +9,7 @@ import X from "../icons/X";
 import SearchButton from "../buttons/SearchButton";
 import CartIcon from "../icons/CartIcon";
 import UserButton from "../buttons/UserButton";
+import { CartContext } from "@/hooks/CartContext";
 
 const links = ["Link1", "Link2", "Link3", "Link4"];
 
@@ -21,6 +22,7 @@ const Header = () => {
   );
 
   const [navOpen, setNavOpen] = useState(false);
+  const { cartProducts } = useContext(CartContext);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -53,11 +55,11 @@ const Header = () => {
         <nav className="flex gap-10 items-center">
           <SearchButton />
           <UserButton />
-          <Link href={"/product"} className="group">
+          <Link href={"/cart"} className="group">
             <div className="flex items-center h-[60px] relative transition-all delay-150 duration-300 group-hover:text-primary">
-              <CartIcon className="size-7" />
+              <CartIcon className="size-7" href="/cart" />
               <div className="absolute top-2 left-4 bg-color-800 text-white border-2 border-white rounded-full items-center justify-center flex size-5 text-xs transition delay-150 duration-300 group-hover:text-primary group-hover:border-primary">
-                0
+                {cartProducts.length}
               </div>
             </div>
           </Link>
