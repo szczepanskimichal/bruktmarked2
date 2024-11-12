@@ -10,6 +10,10 @@ import SearchButton from "../buttons/SearchButton";
 import CartIcon from "../icons/CartIcon";
 import UserButton from "../buttons/UserButton";
 import { CartContext } from "@/hooks/CartContext";
+import { useSession } from "next-auth/react";
+import CategoriesLink from "../buttons/CategoriesLink";
+import MobileCategories from "../buttons/MobileCategories";
+import UserIcon from "../icons/UserIcon";
 
 const links = ["Link1", "Link2", "Link3", "Link4"];
 
@@ -22,21 +26,19 @@ const Header = () => {
   );
 
   const [navOpen, setNavOpen] = useState(false);
-  const { cartProducts } = useContext(CartContext);
+  const { cartProducts } = useContext(CartContext); // do wyswietlania ilosci produktow w koszyku
 
-  const router = useRouter();
+  const router = useRouter(); // do  sciezki!!!
   const pathname = usePathname();
+
+  const session = useSession();
 
   return (
     <>
+      {/* responsywny layout!!!na tablety i kompy */}
       <header className="fixed top-0 w-full hidden lg:flex justify-around h-[60px] items-center bg-color-800 text-white z-[10] shadow-xl">
         <div>Logo</div>
         <nav className="flex gap-10">
-          {/* {links.map((link) => (
-            <div key={link} className={inactiveLink}>
-              {link}
-            </div>
-          ))} */}
           <Link
             className={`
 							${pathname === "/" ? activeLink : inactiveLink}`}
@@ -51,6 +53,7 @@ const Header = () => {
           >
             All products
           </Link>
+          <CategoriesLink inactiveLink={inactiveLink} activeLink={activeLink} />
         </nav>
         <nav className="flex gap-10 items-center">
           <SearchButton />
@@ -73,9 +76,15 @@ const Header = () => {
         <div className={inactiveLink} onClick={() => setNavOpen(true)}>
           <Hamburger />
         </div>
-        <div data-scroll-to="#Hero">
-          <img className="h-[70px] cursor-pointer" src="" alt="" />
-        </div>
+        <div>Logo</div>
+        <Link href={"/cart"} className="group">
+          <div className="flex items-center h-[60px] relative transition-all delay-150 duration-300 group-hover:text-primary">
+            <CartIcon className="size-7" />
+            <div className="absolute top-2 left-4 bg-color-800 text-white border-2 border-white rounded-full items-center justify-center flex size-5 text-xs transition delay-150 duration-300 group-hover:text-primary group-hover:border-primary">
+              {cartProducts.length}
+            </div>
+          </div>
+        </Link>
         <AnimatePresence>
           {navOpen && (
             <motion.nav
@@ -91,25 +100,65 @@ const Header = () => {
               >
                 <X />
               </div>
+              {/* zawartosc mobilnego menu */}
               <div className="flex flex-col justify-between items-start mt-[100px]">
                 <nav className="flex flex-col gap-10 justify-center mb-10 text-lg">
-                  {links.map((link) => (
-                    <div
-                      // onClick={handleClick}
-                      key={link}
-                      className={inactiveLink}
-                    >
-                      {link}
-                    </div>
-                  ))}
                   <Link
-                    onClick={() => setNavOpen(false)}
-                    className={`
-							${pathname === "/" ? activeLink : inactiveLink}`}
+                    className={`${
+                      pathname === "/" ? activeLink : inactiveLink
+                    }`}
                     href={"/"}
                   >
-                    PageLink
+                    Home
                   </Link>
+                  <Link
+                    className={`${
+                      pathname.includes === "/products"
+                        ? activeLink
+                        : inactiveLink
+                    }`}
+                    href={"/products"}
+                  >
+                    All products
+                  </Link>
+                  <MobileCategories
+                    inactiveLink={inactiveLink}
+                    activeLink={activeLink}
+                    setNavOpen={setNavOpen}
+                  />
+                  <nav className="flex flex-col gap-10 justify-center mt-3 w-full items-start ">
+                    {session?.status !== "loading" && (
+                      <>
+                        {session.status === "authenticated" ? (
+                          <Link
+                            href={"/account/profile"}
+                            className="flex gap-3 items-center my-10"
+                          >
+                            {/* {userImage ? (
+															<img
+																className="size-9 rounded-full object-cover"
+																src={userImage}
+																alt="User Image"
+															/>
+														) : ( */}
+                            <UserIcon className="size-7" />
+                            {/* )} */}
+                            <span>Account</span>
+                          </Link>
+                        ) : (
+                          <Link href="/login" className="mt-10">
+                            <span
+                              className="flex gap-3 items-center cursor-pointer"
+                              onClick={() => setUserButton((prev) => !prev)}
+                            >
+                              <UserIcon className="flex size-7" />
+                              Login / Signup
+                            </span>
+                          </Link>
+                        )}
+                      </>
+                    )}
+                  </nav>
                 </nav>
               </div>
             </motion.nav>
