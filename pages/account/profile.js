@@ -2,6 +2,7 @@ import Backdrop from "@/components/Backdrop";
 import Spinner from "@/components/Spinner";
 import UserForm from "@/components/inputs/UserForm";
 import AccountLayout from "@/components/layout/AccountLayout";
+import { useImage } from "@/hooks/useImage";
 import useProfile from "@/hooks/useProfile";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -14,7 +15,7 @@ export default function ProfilePage() {
   const [fullImage, setFullImage] = useState(false);
   // Pobranie danych użytkownika i statusu ładowania z niestandardowego hooka `useProfile`
   const { user, loading } = useProfile(); // Hook
-
+  const { setUserImage } = useImage(); // Hook
   // Funkcja obsługująca aktualizację profilu użytkownika!!!
   // najpierw stworzylem UserForm, pozniej sie zabralem za EditableImage i tutaj przekazuje uzytkownika, do tego zrobilem hooka useProfile
   async function handleProfileUpdate(e, data) {
@@ -28,8 +29,10 @@ export default function ProfilePage() {
         body: JSON.stringify(data),
       });
       // Sprawdzenie odpowiedzi; w przypadku sukcesu obietnica zostaje rozwiązana, w przeciwnym razie odrzucona
-      if (response.ok) resolve();
-      else reject();
+      if (response.ok) {
+        resolve();
+        setUserImage(data.image); // ZDJECIE W HEADERZE!!!!Ustawienie nowego obrazu użytkownika w kontekście
+      } else reject();
     });
 
     // Wyświetlenie powiadomienia za pomocą `toast` dla obietnicy `savingPromise`
