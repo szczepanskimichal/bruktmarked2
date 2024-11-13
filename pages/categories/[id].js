@@ -1,10 +1,13 @@
 import Layout from "@/components/layout/Layout";
 import ProductCard from "@/components/layout/ProductCard";
+import Spinner from "@/components/Spinner";
+import useWishlist from "@/hooks/useWishlist";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 
 export default function CategoryPage({ category, products }) {
+  const { wishlist, setWishlist, loading } = useWishlist();
   return (
     <Layout>
       <div className="flex flex-col gap-10">
@@ -14,9 +17,19 @@ export default function CategoryPage({ category, products }) {
           </div>
         </div>
         <div className="flex flex-col sm:mx-10 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-          {products.map((product, index) => (
-            <ProductCard product={product} index={index} />
-          ))}
+          {loading ? (
+            <Spinner />
+          ) : (
+            products.map((product, index) => (
+              <ProductCard
+                key={product._id}
+                {...product}
+                index={index}
+                wishlist={wishlist}
+                setWishlist={setWishlist}
+              />
+            ))
+          )}
         </div>
       </div>
     </Layout>
