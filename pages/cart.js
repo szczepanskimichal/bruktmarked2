@@ -4,7 +4,7 @@ import { fadeIn } from "@/utils/motion";
 import useProfile from "@/hooks/useProfile";
 import Spinner from "@/components/Spinner";
 import UserForm from "@/components/inputs/UserForm";
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/hooks/CartContext";
 import Table from "@/components/layout/Table";
 import axios from "axios";
