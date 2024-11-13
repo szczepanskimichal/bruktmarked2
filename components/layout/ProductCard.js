@@ -84,7 +84,7 @@ export default function ProductCard({
             </h3>
           </Link>
           {session?.data?.user.id !== user &&
-            (wishlist.some((p) => p._id === _id) ? (
+            (Array.isArray(wishlist) && wishlist.some((p) => p._id === _id) ? (
               <FaHeart
                 onClick={unlikeProduct}
                 className="size-5 mb-3 cursor-pointer text-red-500"
