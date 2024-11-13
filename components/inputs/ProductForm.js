@@ -24,7 +24,7 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [category, setCategory] = useState(assignedCategory || null);
   const [newCategory, setNewCategory] = useState("");
-  const [color, setColor] = useColor(assignedColor, "#000000");
+  const [color, setColor] = useColor(assignedColor || "#000000");
   const [size, setSize] = useState(assignedSize || null);
   const [newSize, setNewSize] = useState("");
   const [price, setPrice] = useState(existingPrice || "");
@@ -90,7 +90,7 @@ export default function ProductForm({
       whileInView="show"
       className="sm:px-5 flex flex-col  items-start gap-5"
     >
-      <div className="flex justify-center gap-10 items-start">
+      <div className="flex flex-col md:flex-row justify-center gap-10 items-start">
         <div className="md:col-span-2 lg:col-span-1">
           <label>Product name</label>
           <input
@@ -141,12 +141,14 @@ export default function ProductForm({
         </div>
         <div className="flex flex-col items-start gap-5">
           <ImageInput images={images} setImages={setImages} />
-          <label>Color</label>
-          <div className="flex gap-3">
+          <label className="flex gap-2">
+            Color
             <div
               style={{ backgroundColor: color.hex }}
-              className="w-24 h-24 cursor-pointer rounded-lg border shadow-md"
-            />
+              className="rounded-full size-5"
+            ></div>
+          </label>
+          <div className="flex gap-3">
             <div className="w-[200px]">
               <ColorPicker
                 color={color}
