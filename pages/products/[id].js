@@ -16,14 +16,16 @@ import Link from "next/link";
 import { format } from "date-fns";
 import DetailsTabs from "@/components/buttons/DetailsTabs";
 import ProductImages from "@/components/layout/ProductImages";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Backdrop from "@/components/Backdrop";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
+import { CartContext } from "@/hooks/CartContext";
 
 export default function ProductPage({ product, category, size, user }) {
   const [confirm, setConfirm] = useState(false);
+  const { addProduct } = useContext(CartContext);
   const router = useRouter();
   const session = useSession();
 
@@ -33,6 +35,15 @@ export default function ProductPage({ product, category, size, user }) {
     setConfirm(false);
     router.push("/products");
   }
+  function handleAddToCart() {
+    addProduct(product._id);
+    const button = document.querySelector(".primary");
+    button.classList.add("animate");
+    setTimeout(() => {
+      button.classList.remove("animate");
+    }, 1000);
+  }
+
   return (
     <>
       <AnimatePresence>
@@ -97,7 +108,7 @@ export default function ProductPage({ product, category, size, user }) {
                         <div className="bg-white py-2 px-4 rounded-md flex gap-2 items-center justify-between shadow-md text-color-700 w-full">
                           <div
                             style={{ backgroundColor: product.color }}
-                            className="rounded-full size-5"
+                            className="rounded-full size-6"
                           ></div>
                         </div>
                       </div>
@@ -115,7 +126,7 @@ export default function ProductPage({ product, category, size, user }) {
                   )}
                 </div>
                 {session?.data?.user.id !== user._id && (
-                  <button className="primary" onClick={() => {}}>
+                  <button className="primary" onClick={handleAddToCart}>
                     <CartIcon className="size-7" />
                     Add to Cart
                   </button>
