@@ -50,7 +50,9 @@ export default function ProductPage({ product, category, size, user }) {
       <AnimatePresence>
         {confirm && (
           <Backdrop handleClose={() => setConfirm(false)}>
-            <h3>Are you sure you want to delete this product?</h3>
+            <h3 className="text-center">
+              Are you sure you want to delete this product?
+            </h3>
             <div className="flex gap-3 justify-center">
               <button onClick={handleDelete} className="delete">
                 Yes, delete!
