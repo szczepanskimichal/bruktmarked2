@@ -149,7 +149,7 @@ export default function ProductForm({
             ></div>
           </label>
           <div className="flex gap-3">
-            <div className="w-[200px]">
+            <div className="w-[90vw] sm:w-[200px]">
               <ColorPicker
                 color={color}
                 onChange={setColor}
