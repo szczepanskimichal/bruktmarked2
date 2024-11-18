@@ -26,6 +26,7 @@ import { CartContext } from "@/hooks/CartContext";
 export default function ProductPage({ product, category, size, user }) {
   const [confirm, setConfirm] = useState(false);
   const { addProduct } = useContext(CartContext);
+  const [fullImage, setFullImage] = useState(null);
   const router = useRouter();
   const session = useSession();
 
@@ -60,6 +61,11 @@ export default function ProductPage({ product, category, size, user }) {
             </div>
           </Backdrop>
         )}
+        {fullImage && (
+          <Backdrop handleClose={() => setFullImage(null)}>
+            <img className="rounded-lg max-h-[65vh]" src={fullImage} alt="" />
+          </Backdrop>
+        )}
       </AnimatePresence>
       <Layout>
         <div className="flex flex-col items-center">
@@ -70,7 +76,10 @@ export default function ProductPage({ product, category, size, user }) {
               whileInView="show"
               className="w-full box p-5"
             >
-              <ProductImages images={product.images} />
+              <ProductImages
+                images={product.images}
+                setFullImage={setFullImage}
+              />
             </motion.div>
             <motion.div
               variants={fadeIn("left", "spring", 0.3, 1)}

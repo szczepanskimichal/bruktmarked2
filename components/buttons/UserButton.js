@@ -1,6 +1,5 @@
 import UserIcon from "../icons/UserIcon";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/router";
 import { slideIn } from "@/utils/motion";
 import Link from "next/link";
 import { useState } from "react";
@@ -44,7 +43,7 @@ export default function UserButton() {
         onMouseEnter={handleMouseEnterIcon}
         onMouseLeave={handleMouseLeaveIcon}
       >
-        {/* <UserIcon className="size-7 cursor-pointer" /> */}
+        {/* zdjecie uzytkownika!!! */}
         {!loading && session.status !== loading && userImage ? (
           <div className="size-8 rounded-full flex justify-center items-center border-2 border-white">
             <img
