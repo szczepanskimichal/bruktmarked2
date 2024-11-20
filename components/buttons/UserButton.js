@@ -38,7 +38,7 @@ export default function UserButton() {
   };
 
   return (
-    <div className="relative flex justify-center">
+    <div className="relative flex justify-center cursor-pointer">
       <div
         onMouseEnter={handleMouseEnterIcon}
         onMouseLeave={handleMouseLeaveIcon}

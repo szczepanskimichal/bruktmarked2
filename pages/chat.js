@@ -1,23 +1,86 @@
 import Backdrop from "@/components/Backdrop";
 import Layout from "@/components/layout/Layout";
-import { useState } from "react";
+import Chat from "@/components/layout/Chat";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import MessageDiv from "@/components/layout/MessageDiv";
 
 export default function ChatPage() {
   const [createMessage, setCreateMessage] = useState(false);
   const [recipient, setRecipient] = useState("");
   const [content, setContent] = useState("");
+  const [reload, setReload] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [conversations, setConversations] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [activeConversation, setActiveConversation] = useState(null);
+  const session = useSession();
+  const userId = session?.data?.user.id;
+
+  async function sendMessage(e) {
+    e.preventDefault();
+    // if (!recipient || !content) {
+    //   toast.error("Recipient and content are required");
+    //   return;
+    // }
+    try {
+      const response = await axios.post("/api/messages", {
+        recipient,
+        content,
+      });
+      if (response.status === 201) {
+        setContent("");
+        setCreateMessage(false);
+        toast.success("Message sent succesfully!");
+        setReload(!reload);
+      }
+    } catch (error) {
+      toast.error("Failed to send message");
+      console.error("Error sending message", error);
+    }
+  }
+
+  useEffect(() => {
+    if (userId) {
+      axios.get("/api/users").then((response) => {
+        setUsers(response.data);
+      });
+      axios.get("/api/messages").then((response) => {
+        setConversations(response.data.conversations);
+      });
+      if (activeConversation) {
+        axios
+          .get(`/api/messages?recipientId=${activeConversation}`)
+          .then((response) => {
+            setMessages(response.data.conversationMessages);
+          });
+      }
+    }
+  }, [userId, activeConversation, reload]);
+
+  // console.log(users);
+
   return (
     <>
       {createMessage && (
         <Backdrop handleClose={() => setCreateMessage(false)}>
           <h3 className="primary">Start a new conversation</h3>
-          <form onSubmit={() => {}}>
+          <form onSubmit={sendMessage}>
             <select
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               required
             >
               <option value="">Select an user</option>
+              {users
+                ?.filter((user) => user._id !== userId)
+                .map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.name || user.email}
+                  </option>
+                ))}
             </select>
             <textarea
               value={content}
@@ -58,7 +121,27 @@ export default function ChatPage() {
                   </svg>
                 </div>
               </div>
+              <div className="flex flex-col">
+                {conversations?.length > 0 &&
+                  conversations.map((conversation) => (
+                    <MessageDiv
+                      conversation={conversation}
+                      key={conversation._id}
+                      activeConversation={activeConversation}
+                      setActiveConversation={setActiveConversation}
+                      setRecipient={setRecipient}
+                    />
+                  ))}
+              </div>
             </aside>
+            <Chat
+              conversations={conversations}
+              setConversations={setConversations}
+              activeConversation={activeConversation}
+              setActiveConversation={setActiveConversation}
+              messages={messages}
+              sendMessage={sendMessage}
+            />
           </div>
         </div>
       </Layout>

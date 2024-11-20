@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 import CategoriesLink from "../buttons/CategoriesLink";
 import MobileCategories from "../buttons/MobileCategories";
 import UserIcon from "../icons/UserIcon";
+import ChatButton from "../buttons/ChatButton";
 
 const links = ["Link1", "Link2", "Link3", "Link4"];
 
@@ -57,6 +58,7 @@ const Header = () => {
         </nav>
         <nav className="flex gap-10 items-center">
           <SearchButton />
+          <ChatButton />
           <UserButton />
           <Link href={"/cart"}>
             <div className="flex items-center h-[60px] relative transition-all delay-150 duration-300 ">
@@ -132,7 +134,7 @@ const Header = () => {
                         {session.status === "authenticated" ? (
                           <Link
                             href={"/account/profile"}
-                            className="flex gap-3 items-center my-10"
+                            className="flex gap-3 items-center my-10 "
                           >
                             {/* {userImage ? (
 															<img
@@ -141,7 +143,7 @@ const Header = () => {
 																alt="User Image"
 															/>
 														) : ( */}
-                            <UserIcon className="size-7" />
+                            <UserIcon className="size-7 cursor-pointer" />
                             {/* )} */}
                             <span>Account</span>
                           </Link>
