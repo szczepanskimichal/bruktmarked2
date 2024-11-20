@@ -14,6 +14,8 @@ export default function Backdrop({ children, handleClose }) {
         whileInView="show"
         exit="exit"
         className="bg-color-100 p-10 rounded-md relative"
+        onClick={(e) => e.stopPropagation()} // Prevent closing the backdrop when clicking on the modal, musialem to zrobic
+        // bo znikal backdrop na klikanie wiadomosci i nic nie mozna bylo wpisac ani wybrac
       >
         <button
           onClick={handleClose}

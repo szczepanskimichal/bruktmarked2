@@ -26,7 +26,7 @@ export default function ProductImages({ images, setFullImage }) {
         )}
       </div>
       {/* Tutaj zrobilem galerie miniatur, ktora po kliknieciu zmienia zdjecie glowne */}
-      {images.length > 3 ? (
+      {images.length > 4 ? (
         <Swiper
           slidesPerView={3}
           navigation

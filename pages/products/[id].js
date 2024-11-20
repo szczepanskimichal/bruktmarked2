@@ -65,7 +65,7 @@ export default function ProductPage({ product, category, size, user }) {
         )}
         {fullImage && (
           <Backdrop handleClose={() => setFullImage(null)}>
-            <img className="rounded-lg max-h-[65vh]" src={fullImage} alt="" />
+            <img className="rounded-lg max-h-[80vh]" src={fullImage} alt="" />
           </Backdrop>
         )}
       </AnimatePresence>
