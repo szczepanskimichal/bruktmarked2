@@ -32,4 +32,5 @@ export default function ChatButton() {
     </div>
   );
 }
+// prosty plik z przyciskiem do czatu
 // teraz zajme sie modelem bo znowu bedzie problem

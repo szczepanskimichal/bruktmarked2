@@ -13,9 +13,10 @@ export default async function handle(req, res) {
   }
   try {
     if (method === "GET") {
+      // 3 potem napisalem get, ale to powalone
       const messages = await Message.find({
         $or: [{ sender: userId }, { recipient: userId }],
-      })
+      }) //wypelniam danymi
         .populate("sender", "email image name")
         .populate("recipient", "email image name");
       const conversations = messages.reduce((acc, message) => {
@@ -38,6 +39,7 @@ export default async function handle(req, res) {
         return acc;
       }, []);
       const sortedConversations = conversations.sort(
+        // sortuje
         (a, b) => b.latestMessage.createdAt - a.latestMessage.createdAt
       );
       const { recipientId } = req.query;
@@ -45,7 +47,7 @@ export default async function handle(req, res) {
         const conversationMessages = messages.filter(
           (msg) =>
             (msg.sender._id.toString() === userId &&
-              msg.recipient._id.toString() === recipientId) ||
+              msg.recipient._id.toString() === recipientId) || // albo w druga strone!!!
             (msg.sender._id.toString() === recipientId &&
               msg.recipient._id.toString() === userId)
         );
@@ -54,6 +56,7 @@ export default async function handle(req, res) {
       return res.status(200).json({ conversations: sortedConversations });
     }
     if (method === "POST") {
+      // 2 potem napisalem post i po tym odrazu wskoczylem w pages/chat.js
       const { recipient, content } = req.body;
       if (!recipient || !content) {
         return res
@@ -68,6 +71,7 @@ export default async function handle(req, res) {
       return res.status(201).json(message);
     }
   } catch (error) {
+    // 1 najpierw napisalem error handling
     console.error("Error handling messages:", error);
     res.status(500).json({ error: "Error processing request" });
   }

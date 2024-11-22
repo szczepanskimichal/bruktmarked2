@@ -20,6 +20,7 @@ export default function ChatPage() {
   const userId = session?.data?.user.id;
 
   async function sendMessage(e) {
+    // mialem problemy bo co? jak zwykle nie napisalem Api a pozniej jeszcze cos sknocilem
     e.preventDefault();
     // if (!recipient || !content) {
     //   toast.error("Recipient and content are required");
@@ -31,10 +32,10 @@ export default function ChatPage() {
         content,
       });
       if (response.status === 201) {
-        setContent("");
-        setCreateMessage(false);
+        setContent(""); //pust
+        setCreateMessage(false); // zamykam modal
         toast.success("Message sent succesfully!");
-        setReload(!reload);
+        setReload(!reload); // odswiezam
       }
     } catch (error) {
       toast.error("Failed to send message");
@@ -43,22 +44,24 @@ export default function ChatPage() {
   }
 
   useEffect(() => {
+    // mozliwosc wybierania USERA!!! ta ale pamietaj ze musisz miec api/users.js zrobione!!!
     if (userId) {
       axios.get("/api/users").then((response) => {
         setUsers(response.data);
       });
       axios.get("/api/messages").then((response) => {
+        // pobieram konwersacje
         setConversations(response.data.conversations);
       });
       if (activeConversation) {
         axios
-          .get(`/api/messages?recipientId=${activeConversation}`)
+          .get(`/api/messages?recipientId=${activeConversation}`) // pobieram wiadomosci
           .then((response) => {
-            setMessages(response.data.conversationMessages);
+            setMessages(response.data.conversationMessages); // ustawiam wiadomosci
           });
       }
     }
-  }, [userId, activeConversation, reload]);
+  }, [userId, activeConversation, reload]); // odswiezam po zmianie
 
   // console.log(users);
 
@@ -74,6 +77,7 @@ export default function ChatPage() {
               required
             >
               <option value="">Select an user</option>
+              {/* wyswietlanie userow!!!bez zalogowanego */}
               {users
                 ?.filter((user) => user._id !== userId)
                 .map((user) => (
