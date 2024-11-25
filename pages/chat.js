@@ -19,7 +19,7 @@ export default function ChatPage() {
   const session = useSession();
   const userId = session?.data?.user.id;
 
-  async function sendMessage(e) {
+  async function sendMessage(e, messageContent = content) {
     // mialem problemy bo co? jak zwykle nie napisalem Api a pozniej jeszcze cos sknocilem
     e.preventDefault();
     // if (!recipient || !content) {
@@ -29,12 +29,13 @@ export default function ChatPage() {
     try {
       const response = await axios.post("/api/messages", {
         recipient,
-        content,
+        content: messageContent,
       });
       if (response.status === 201) {
         setContent(""); //pust
         setCreateMessage(false); // zamykam modal
-        toast.success("Message sent succesfully!");
+        // toast.success("Message sent succesfully!"); // wezme to zakomentuje, bo to glupie jak piszesz i caly czas wywala komunikat
+        //o udanym wyslaniu wiadomosci, niech sie wyswietla tylko jak sie cos nie uda :)
         setReload(!reload); // odswiezam
       }
     } catch (error) {
@@ -101,7 +102,8 @@ export default function ChatPage() {
       )}
       <Layout>
         <div className="w-full h-full flex justify-center">
-          <div className="rounded-xl flex shadow-xl bg-white w-[80%]">
+          {/* mialem problem z paskiem przewijania bo sie nie wyswietlal, ale dalem tutaj ograniczenie wysokosci i smiga */}
+          <div className="rounded-xl flex shadow-xl bg-white w-[80%] max-h-[80vh]">
             <aside className="h-full rounded-l-xl bg-color-50 border-r border-color-400 min-w-[30%]">
               <div className="flex items-center justify-between p-5">
                 <h2 className="text-2xl mb-0">Messages</h2>
@@ -145,6 +147,7 @@ export default function ChatPage() {
               setActiveConversation={setActiveConversation}
               messages={messages}
               sendMessage={sendMessage}
+              reload={reload}
             />
           </div>
         </div>

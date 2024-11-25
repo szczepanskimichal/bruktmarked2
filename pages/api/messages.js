@@ -38,10 +38,12 @@ export default async function handle(req, res) {
         }
         return acc;
       }, []);
+
       const sortedConversations = conversations.sort(
         // sortuje
         (a, b) => b.latestMessage.createdAt - a.latestMessage.createdAt
       );
+
       const { recipientId } = req.query;
       if (recipientId) {
         const conversationMessages = messages.filter(
