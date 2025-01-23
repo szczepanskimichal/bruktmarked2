@@ -34,3 +34,4 @@ export default function ChatButton() {
 }
 // prosty plik z przyciskiem do czatu
 // teraz zajme sie modelem bo znowu bedzie problem
+// zrobilem model Message.js
