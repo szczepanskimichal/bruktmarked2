@@ -101,9 +101,9 @@ export default function ChatPage() {
         </Backdrop>
       )}
       <Layout>
-        <div className="w-full h-full flex justify-center">
+        <div className="w-full h-[80vh] flex justify-center">
           {/* mialem problem z paskiem przewijania bo sie nie wyswietlal, ale dalem tutaj ograniczenie wysokosci i smiga */}
-          <div className="rounded-xl flex shadow-xl bg-white w-[80%] max-h-[80vh]">
+          <div className="rounded-xl flex shadow-xl bg-white w-[80%]">
             <aside className="h-full rounded-l-xl bg-color-50 border-r border-color-400 min-w-[30%]">
               <div className="flex items-center justify-between p-5">
                 <h2 className="text-2xl mb-0">Messages</h2>

@@ -10,11 +10,11 @@ import SearchButton from "../buttons/SearchButton";
 import CartIcon from "../icons/CartIcon";
 import UserButton from "../buttons/UserButton";
 import { CartContext } from "@/hooks/CartContext";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import CategoriesLink from "../buttons/CategoriesLink";
 import MobileCategories from "../buttons/MobileCategories";
-import UserIcon from "../icons/UserIcon";
 import ChatButton from "../buttons/ChatButton";
+import MobileUser from "../buttons/MobileUser";
 
 const links = ["Link1", "Link2", "Link3", "Link4"];
 
@@ -94,8 +94,11 @@ const Header = () => {
               initial="hidden"
               whileInView="show"
               exit="exit"
-              className="fixed z-10 top-0 left-0 h-screen bg-color-800 w-[60%] pl-[20px]"
+              className="fixed z-10 top-0 left-0 h-screen bg-color-800 w-[70%] px-[20px]"
             >
+              <div className="absolute top-5 left-5">
+                <MobileUser setNavOpen={setNavOpen} />
+              </div>
               <div
                 onClick={() => setNavOpen(false)}
                 className="absolute top-5 right-5 cursor-pointer"
@@ -103,7 +106,7 @@ const Header = () => {
                 <X />
               </div>
               {/* zawartosc mobilnego menu */}
-              <div className="flex flex-col justify-between items-start mt-[100px]">
+              <div className="flex flex-col h-full justify-between items-start pt-[100px] pb-5">
                 <nav className="flex flex-col gap-10 justify-center mb-10 text-lg">
                   <Link
                     className={`${
@@ -128,40 +131,21 @@ const Header = () => {
                     activeLink={activeLink}
                     setNavOpen={setNavOpen}
                   />
-                  <nav className="flex flex-col gap-10 justify-center mt-3 w-full items-start ">
-                    {session?.status !== "loading" && (
+                  <div
+                    onClick={() => setNavOpen(false)}
+                    className="mt-10 flex flex-col gap-10"
+                  >
+                    {session?.status === "authenticated" ? (
+                      <div onClick={signOut}>Logout</div>
+                    ) : (
                       <>
-                        {session.status === "authenticated" ? (
-                          <Link
-                            href={"/account/profile"}
-                            className="flex gap-3 items-center my-10 "
-                          >
-                            {/* {userImage ? (
-															<img
-																className="size-9 rounded-full object-cover"
-																src={userImage}
-																alt="User Image"
-															/>
-														) : ( */}
-                            <UserIcon className="size-7 cursor-pointer" />
-                            {/* )} */}
-                            <span>Account</span>
-                          </Link>
-                        ) : (
-                          <Link href="/login" className="mt-10">
-                            <span
-                              className="flex gap-3 items-center cursor-pointer"
-                              onClick={() => setUserButton((prev) => !prev)}
-                            >
-                              <UserIcon className="flex size-7" />
-                              Login / Signup
-                            </span>
-                          </Link>
-                        )}
+                        <Link href="/login">Login</Link>
+                        <Link href="/register">Register</Link>
                       </>
                     )}
-                  </nav>
+                  </div>
                 </nav>
+                <SearchButton />
               </div>
             </motion.nav>
           )}
