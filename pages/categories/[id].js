@@ -5,8 +5,10 @@ import useWishlist from "@/hooks/useWishlist";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
+import { useSession } from "next-auth/react";
 
 export default function CategoryPage({ category, products }) {
+  const session = useSession();
   const { wishlist, setWishlist, loading } = useWishlist();
   return (
     <Layout>
@@ -17,9 +19,9 @@ export default function CategoryPage({ category, products }) {
           </div>
         </div>
         <div className="flex flex-col sm:mx-10 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-          {loading ? (
+          {session.status === "authenticated" && loading ? (
             <Spinner />
-          ) : (
+          ) : products?.lenth > 0 ? (
             products.map((product, index) => (
               <ProductCard
                 key={product._id}
@@ -29,6 +31,8 @@ export default function CategoryPage({ category, products }) {
                 setWishlist={setWishlist}
               />
             ))
+          ) : (
+            <div>No products for this category</div>
           )}
         </div>
       </div>

@@ -65,7 +65,7 @@ export default function AccountLayout({ children, title }) {
             </svg>
           }
         />
-        <AccountTab
+        {/* <AccountTab
           text="Settings"
           href="settings"
           icon={
@@ -82,7 +82,7 @@ export default function AccountLayout({ children, title }) {
               />
             </svg>
           }
-        />
+        /> */}
       </div>
       <motion.h2
         variants={fadeIn("right", "spring", 0, 1)}
