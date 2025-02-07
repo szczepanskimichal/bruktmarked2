@@ -64,6 +64,7 @@ export default function CategoriesLink() {
             <div className="w-full grid grid-cols-4 gap-x-10 gap-y-1 px-[100px] py-3">
               {categories?.map((category) => (
                 <Link
+                  key={category._id}
                   className={
                     pathname.includes("/categories/" + category._id)
                       ? activeLink

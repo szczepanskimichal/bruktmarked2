@@ -106,7 +106,7 @@ export default function RegisterPage() {
             Login with Google
           </button>
           <div className="text-center mt-5 text-gray-500 border-color-800 border-t pt-3">
-            Don't have an account yet? Register{" "}
+            Do&apos;s't have an account yet? Register{" "}
             <Link
               className="hover:text-primary transition-all delay-100 duration-300 hover:decoration-primary underline"
               href={"/register"}

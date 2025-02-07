@@ -89,7 +89,7 @@ export default function UserButton() {
             ) : (
               <>
                 <p className="text-center whitespace-nowrap">
-                  You're not authenticated
+                  You&apos;re not authenticated
                 </p>
                 <div className="flex flex-col gap-3 items-center w-full">
                   <button className="primary flex justify-center w-full">

@@ -100,7 +100,7 @@ export default function AccountLayout({ children, title }) {
           <>{children}</>
         ) : (
           <div className="flex flex-col items-center justify-center gap-3">
-            <p className="text-xl">You're not authenticated.</p>
+            <p className="text-xl">You&apos;re not authenticated.</p>
             <div className="flex gap-3">
               <button className="primary flex justify-center w-full">
                 <Link href={"/login"}>Login</Link>

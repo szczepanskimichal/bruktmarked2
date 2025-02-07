@@ -57,7 +57,7 @@ export default function SearchPage() {
         )}
       </AnimatePresence>
       <Layout>
-        <h2 className="mb-5">Search results for "{q}"</h2>
+        <h2 className="mb-5">Search results for &quot;{q}&quot;</h2>
         {session.status === "authenticated" && loading && wishlistLoading ? (
           <Spinner />
         ) : products?.length > 0 ? (
