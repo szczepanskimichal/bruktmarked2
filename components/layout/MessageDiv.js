@@ -5,6 +5,7 @@ export default function MessageDiv({
   activeConversation,
   setActiveConversation,
   setRecipient,
+  setChatOpen = () => {},
 }) {
   const session = useSession();
   const user = session?.data?.user.id;
@@ -17,6 +18,7 @@ export default function MessageDiv({
       onClick={() => {
         setActiveConversation(conversation._id);
         setRecipient(conversation._id);
+        setChatOpen && setChatOpen(true);
       }}
       className={`flex gap-3 py-3 px-5 cursor-pointer ${
         activeConversation === conversation._id && "bg-color-200"

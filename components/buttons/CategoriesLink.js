@@ -5,7 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function CategoriesLink({ inactiveLink, activeLink }) {
+export default function CategoriesLink() {
+  const inactiveLink =
+    "hover:text-primary cursor-pointer hover:decoration-primary decoration-color-800 underline underline-offset-4 transition-all delay-150 duration-300";
+  const activeLink = inactiveLink.replace(
+    "decoration-color-800",
+    "decoration-white"
+  );
+
   const [categories, setCategories] = useState([]);
   const [categoriesShow, setCategoriesShow] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState(null);
@@ -39,7 +46,7 @@ export default function CategoriesLink({ inactiveLink, activeLink }) {
       <div
         onMouseEnter={handleMouseEnterIcon}
         onMouseLeave={handleMouseLeaveIcon}
-        className={`${inactiveLink} relative cursor-pointer`}
+        // className={`${inactiveLink} relative cursor-pointer`}
       >
         Categories
       </div>

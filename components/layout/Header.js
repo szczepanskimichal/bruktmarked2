@@ -33,6 +33,7 @@ const Header = () => {
   const pathname = usePathname();
 
   const session = useSession();
+  console.log(session);
 
   return (
     <>
@@ -58,7 +59,7 @@ const Header = () => {
         </nav>
         <nav className="flex gap-10 items-center">
           <SearchButton />
-          <ChatButton />
+          {session?.status === "authenticated" && <ChatButton />}
           <UserButton />
           <Link href={"/cart"}>
             <div className="flex items-center h-[60px] relative transition-all delay-150 duration-300 ">
@@ -96,8 +97,9 @@ const Header = () => {
               exit="exit"
               className="fixed z-10 top-0 left-0 h-screen bg-color-800 w-[70%] px-[20px]"
             >
-              <div className="absolute top-5 left-5">
+              <div className="absolute flex gap-7 items-center top-5 left-5">
                 <MobileUser setNavOpen={setNavOpen} />
+                <ChatButton />
               </div>
               <div
                 onClick={() => setNavOpen(false)}

@@ -15,7 +15,7 @@ export default async function handle(req, res) {
     const email = session?.user?.email; // Sprawdzenie, czy istnieje adres email w sesji
     // Jeśli brak emaila, zwracamy pusty obiekt
     if (!email) {
-      res.json({});
+      return res.json({});
     }
     // Wyszukiwanie użytkownika oraz informacji o użytkowniku w bazie danych
 

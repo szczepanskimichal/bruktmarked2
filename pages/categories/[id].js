@@ -21,7 +21,7 @@ export default function CategoryPage({ category, products }) {
         <div className="flex flex-col sm:mx-10 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {session.status === "authenticated" && loading ? (
             <Spinner />
-          ) : products?.lenth > 0 ? (
+          ) : products?.length > 0 ? (
             products.map((product, index) => (
               <ProductCard
                 key={product._id}
@@ -32,7 +32,7 @@ export default function CategoryPage({ category, products }) {
               />
             ))
           ) : (
-            <div>No products for this category</div>
+            <p>No products found</p>
           )}
         </div>
       </div>

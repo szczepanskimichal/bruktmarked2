@@ -61,6 +61,7 @@ export default function UserProductsPage() {
           {/* Mapowanie przez produkty i tworzenie kart produktu */}
           {products.map((product, index) => (
             <ProductCard
+              key={product._id} // Klucz produktu
               {...product} // Przekazujemy wszystkie właściwości produktu
               index={index} // Indeks produktu w liście
               setConfirm={() => setConfirm(product._id)} // Ustawienie `confirm` na ID produktu przy kliknięciu na usunięcie

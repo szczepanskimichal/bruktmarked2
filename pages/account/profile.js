@@ -4,6 +4,7 @@ import UserForm from "@/components/inputs/UserForm";
 import AccountLayout from "@/components/layout/AccountLayout";
 import { useImage } from "@/hooks/useImage";
 import useProfile from "@/hooks/useProfile";
+import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -44,6 +45,14 @@ export default function ProfilePage() {
   }
   return (
     <>
+      {/* // Warunkowe wyświetlanie obrazu w pełnym rozmiarze w elemencie Backdrop */}
+      <AnimatePresence>
+        {fullImage && (
+          <Backdrop handleClose={() => setFullImage(false)}>
+            <img className="rounded-lg max-h-[65vh]" src={user?.image} alt="" />
+          </Backdrop>
+        )}
+      </AnimatePresence>
       {/* Warunkowe wyświetlanie obrazu w pełnym rozmiarze w elemencie Backdrop */}
       {fullImage && (
         <Backdrop handleClose={() => setFullImage(false)}>

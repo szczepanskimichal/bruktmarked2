@@ -12,8 +12,8 @@ export default function UserIndexDiv({ user }) {
       className="relative"
     >
       <div className="absolute inset-0 opacity-75 bg-gradient-to-r from-primary to-color-800 blur"></div>
-      <div className="bg-white/60 sm:w-[500px] backdrop-blur-lg p-5 sm:p-10 rounded-xl shadow-xl">
-        <h1 className="text-4xl mb-7 font-semibold text-color-800">
+      <div className="bg-white/60 max-w-[90vw] backdrop-blur-lg p-5 sm:p-10 rounded-xl shadow-xl">
+        <h1 className="text-4xl mb-7 font-semibold text-color-800 truncate">
           Welcome, {user ? user.email : "Guest"}!
         </h1>
         <div className="flex flex-col items-center gap-5">
