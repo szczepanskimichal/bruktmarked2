@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -38,6 +39,7 @@ export default function SearchPage() {
       setLoading(false);
     }
   }, [q]);
+
   return (
     <>
       {/* // to jest do usowania */}

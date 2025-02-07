@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "@/utils/motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+
 export default function AccountLayout({ children, title }) {
   const session = useSession();
   return (

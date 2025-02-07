@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useImage } from "@/hooks/useImage";
+import Image from "next/image";
 
 export default function UserButton() {
   const [infoDiv, setInfoDiv] = useState(false);
@@ -49,7 +50,9 @@ export default function UserButton() {
             <img
               className="w-full h-full object-cover rounded-full"
               src={userImage}
-              alt=""
+              alt="User Image"
+              width={32}
+              height={32}
             />
           </div>
         ) : (
