@@ -136,7 +136,7 @@ export default function ProductPage({ product, category, size, user }) {
                     </div>
                   )}
                 </div>
-                {session?.data?.user.id !== user._id && (
+                {session?.data?.user.id !== user?._id && (
                   <button className="primary" onClick={handleAddToCart}>
                     <CartIcon className="size-7" />
                     Add to Cart
@@ -145,7 +145,7 @@ export default function ProductPage({ product, category, size, user }) {
               </div>
               <div>
                 {session.status === "authenticated" &&
-                session?.data?.user.id === user._id ? (
+                session?.data?.user.id === user?._id ? (
                   <div className="flex gap-3 mb-3">
                     <Link href={"/products/edit/" + product._id}>
                       <button className="cancel">
